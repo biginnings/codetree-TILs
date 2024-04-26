@@ -90,7 +90,7 @@ int main() {
 
                             if (now.now_time > temp.t) {
                                 x_gap += now.now_time - temp.t;
-                                //x_gap %= L;
+                                x_gap %= L;
                             }
 
                             if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap >= L)) {
@@ -138,7 +138,7 @@ int main() {
 
                     if (now.now_time > temp.t) {
                         x_gap += now.now_time - temp.t;
-                        //x_gap %= L;
+                        x_gap %= L;
                     }
 
                     if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap >= L)) {
