@@ -80,7 +80,8 @@ int main() {
                         break;
                     }
                     if (sushi.find(now.name) != sushi.end()) {
-                        for (int i = 0; i < sushi[now.name].q.size(); i++) {
+                        int abc = sushi[now.name].q.size();
+                        for (int i = 0; i < abc; i++) {
                             t_x temp = sushi[now.name].q.front();
                             sushi[now.name].q.pop();
 
@@ -97,7 +98,7 @@ int main() {
                                 cnt--;
                                 continue;
                             }
-                            temp.x = (temp.x + t_gap) % L;
+                            temp.x = (temp.x + timer + 1 - temp.t) % L;
                             temp.t = timer + 1;
 
                             sushi[now.name].q.push(temp);
