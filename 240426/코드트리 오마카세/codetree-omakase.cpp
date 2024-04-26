@@ -60,52 +60,7 @@ int main() {
             cnt++;
         }
         else if (a == 200) {
-            int temp_time;
-            cin >> temp_time >> x >> name >> n;
-
-
-            if (temp_time - 1 != timer) {
-                timer = temp_time - 1;
-
-                while (!guest.empty()) {
-                    Guest now = guest.top();
-                    guest.pop();
-
-                    if (now.now_time > timer) {
-                        guest.push(now);
-                        break;
-                    }
-                    if (sushi.find(now.name) != sushi.end()) {
-                        for (int i = 0; i < sushi[now.name].q.size(); i++) {
-                            t_x temp = sushi[now.name].q.front();
-                            sushi[now.name].q.pop();
-
-                            int t_gap = timer + 1 - now.now_time;
-                            int x_gap = temp.x - now.x;
-
-                            if (now.now_time > temp.t) {
-                                x_gap += now.now_time - temp.t;
-                                x_gap %= L;
-                            }
-
-                            if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap > L)) {
-                                now.n--;
-                                cnt--;
-                                continue;
-                            }
-                            temp.x = (temp.x + t_gap) % L;
-                            temp.t = timer + 1;
-
-                            sushi[now.name].q.push(temp);
-                        }
-                    }
-
-                    if (now.n == 0) continue;
-                    now.now_time = timer + 1;
-                    guest.push(now);
-                }
-            }
-            timer = temp_time;
+            cin >> timer >> x >> name >> n;
 
             guest.push({ x, n, timer, name });
         }
@@ -134,10 +89,10 @@ int main() {
 
                             if (now.now_time > temp.t) {
                                 x_gap += now.now_time - temp.t;
-                                x_gap %= L;
+                                //x_gap %= L;
                             }
 
-                            if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap > L)) {
+                            if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap >= L)) {
                                 now.n--;
                                 cnt--;
                                 continue;
@@ -182,10 +137,10 @@ int main() {
 
                     if (now.now_time > temp.t) {
                         x_gap += now.now_time - temp.t;
-                        x_gap %= L;
+                        //x_gap %= L;
                     }
 
-                    if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap > L)) {
+                    if ((x_gap <= 0 && x_gap + t_gap >= 0) || (x_gap > 0 && x_gap + t_gap >= L)) {
                         now.n--;
                         cnt--;
                         continue;
