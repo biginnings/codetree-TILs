@@ -78,11 +78,10 @@ int main() {
                         if(now_sushi.next_t <= timer) {
                             now.n--;
                             cnt--;
-                            continue;
                         } else {
                             sushi[now.name].q.push(now_sushi);
-                            continue;
                         }
+                        continue;
                     }
 
                     if(now.now_time > now_sushi.t) {
@@ -99,9 +98,9 @@ int main() {
 
                     int next_t = INT_MAX;
                     if(now_sushi.x <= now.x) {
-                        next_t = timer + now.x - now_sushi.x;
+                        next_t = timer + now.x - now_position;
                     } else {
-                        next_t = timer + now.x + L - now_sushi.x;
+                        next_t = timer + now.x + L - now_position;
                     }
                     now_sushi = {timer, now_position, next_t};
                     sushi[now.name].q.push(now_sushi);
