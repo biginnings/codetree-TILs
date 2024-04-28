@@ -64,6 +64,7 @@ int main() {
                 Guest now = guest.front();
                 int for_size = sushi[now.name].q.size();
                 if(for_size == 0) {
+                    guest.pop();
                     guest.push(now);
                     continue;
                 }
