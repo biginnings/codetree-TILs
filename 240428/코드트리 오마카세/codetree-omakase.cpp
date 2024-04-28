@@ -42,13 +42,7 @@ int main() {
         if (a == 100) {
             cin >> timer >> x >> name;
 
-            if (sushi.find(name) != sushi.end()) {
-                sushi[name].q.push({ timer, x });
-            }
-            else {
-                sushi[name] = { queue<t_x>() };
-                sushi[name].q.push({ timer, x });
-            }
+            sushi[name].q.push({ timer, x });
             cnt++;
         }
         else if (a == 200) {
@@ -60,6 +54,11 @@ int main() {
             cin >> timer;
 
             int guest_size = guest.size();
+            if(cnt == 0 || guest.size() == 0) {
+                cout << guest.size() << " " << cnt << "\n";
+                continue;
+            }
+
             for (int i = 0; i < guest_size; i++) {
                 Guest now = guest.front();
                 int for_size = sushi[now.name].q.size();
