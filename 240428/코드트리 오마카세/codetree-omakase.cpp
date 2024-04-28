@@ -27,10 +27,6 @@ string name;
 queue<Guest> guest;
 unordered_map<string, Point> sushi;
 
-void rotate() {
-
-}
-
 int main() {
     // 여기에 코드를 작성해주세요.
     int a = 0;
@@ -66,9 +62,13 @@ int main() {
             int guest_size = guest.size();
             for (int i = 0; i < guest_size; i++) {
                 Guest now = guest.front();
+                int for_size = sushi[now.name].q.size();
+                if(for_size == 0) {
+                    guest.push(now);
+                    continue;
+                }
                 guest.pop();
 
-                int for_size = sushi[now.name].q.size();
                 for(int i = 0; i < for_size; i++) {
                     t_x now_sushi = sushi[now.name].q.front();
                     sushi[now.name].q.pop();
