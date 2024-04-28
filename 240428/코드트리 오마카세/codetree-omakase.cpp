@@ -4,11 +4,12 @@
 #include <cstring>
 #include <unordered_map>
 #include <cmath>
+#include <climits>
 
 using namespace std;
 
 struct t_x {
-    int t, x;
+    int t, x, next_t;
 };
 
 struct Point {
@@ -42,7 +43,7 @@ int main() {
         if (a == 100) {
             cin >> timer >> x >> name;
 
-            sushi[name].q.push({ timer, x });
+            sushi[name].q.push({ timer, x, INT_MAX });
             cnt++;
         }
         else if (a == 200) {
@@ -73,11 +74,22 @@ int main() {
                     t_x now_sushi = sushi[now.name].q.front();
                     sushi[now.name].q.pop();
 
+                    if(now_sushi.next_t != INT_MAX) {
+                        if(now_sushi.next_t <= timer) {
+                            now.n--;
+                            cnt--;
+                            continue;
+                        } else {
+                            sushi[now.name].q.push(now_sushi);
+                            continue;
+                        }
+                    }
+
                     if(now.now_time > now_sushi.t) {
-                        now_sushi.x = (now.now_time - now_sushi.t + now_sushi.x) % L;
+                        now_sushi.x = (now.now_time + now_sushi.x - now_sushi.t) % L;
                         now_sushi.t = now.now_time;
                     }
-                    int now_position = (timer - now_sushi.t + now_sushi.x);
+                    int now_position = (timer + now_sushi.x - now_sushi.t);
 
                     if((now_sushi.x <= now.x && now_position >= now.x) || (now_sushi.x > now.x && now_position >= now.x + L)){
                         now.n--;
@@ -85,7 +97,13 @@ int main() {
                         continue;
                     }
 
-                    now_sushi = {timer, now_position};
+                    int next_t = INT_MAX;
+                    if(now_sushi.x <= now.x) {
+                        next_t = timer + now.x - now_sushi.x;
+                    } else {
+                        next_t = timer + now.x + L - now_sushi.x;
+                    }
+                    now_sushi = {timer, now_position, next_t};
                     sushi[now.name].q.push(now_sushi);
                 }
 
