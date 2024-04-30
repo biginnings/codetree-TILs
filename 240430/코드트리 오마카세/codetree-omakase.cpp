@@ -25,9 +25,8 @@ struct Point {
 
 int L, Q;
 int timer, x, n;
-int cnt = 0;
+int cnt = 0, guest_cnt = 0;
 string name;
-queue<string> guest;
 unordered_map<string, Point> sushi;
 
 int main() {
@@ -66,6 +65,7 @@ int main() {
         }
         else if (a == 200) {
             cin >> timer >> x >> name >> n;
+            guest_cnt++;
 
             while (!sushi[name].q.empty()) {
                 t_x temp = sushi[name].q.front();
@@ -82,20 +82,18 @@ int main() {
                 sushi[name].pq.push(next_time);
             }
             sushi[name].guest = { x, n };
-            guest.push(name);
         }
         else if (a == 300) {
             cin >> timer;
 
-            int guest_size = guest.size();
-            if (cnt == 0 || guest.size() == 0) {
-                cout << guest.size() << " " << cnt << "\n";
+            if (cnt == 0 || guest_cnt == 0) {
+                cout << guest_cnt << " " << cnt << "\n";
                 continue;
             }
 
-            for (int i = 0; i < guest_size; i++) {
-                string now = guest.front();
-                guest.pop();
+            for (auto i = sushi.begin(); i != sushi.end(); i++) {
+                if (i->second.guest.n == 0) continue;
+                string now = i->first;
 
                 while (!sushi[now].pq.empty()) {
                     int temp = sushi[now].pq.top();
@@ -103,18 +101,16 @@ int main() {
                     if (temp <= timer) {
                         sushi[now].pq.pop();
                         sushi[now].guest.n--;
+                        if (sushi[now].guest.n == 0) guest_cnt--;
                         cnt--;
                     }
                     else {
                         break;
                     }
                 }
-
-                if (sushi[now].guest.n == 0) continue;
-                guest.push(now);
             }
 
-            cout << guest.size() << " " << cnt << "\n";
+            cout << guest_cnt << " " << cnt << "\n";
         }
         else {
             cout << "error\n";
