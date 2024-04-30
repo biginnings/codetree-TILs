@@ -101,8 +101,11 @@ int main() {
                     if (temp <= timer) {
                         sushi[now].pq.pop();
                         sushi[now].guest.n--;
-                        if (sushi[now].guest.n == 0) guest_cnt--;
-                        cnt--;
+                        cnt --;
+                        if (sushi[now].guest.n == 0) {
+                            guest_cnt--;
+                            break;
+                        }
                     }
                     else {
                         break;
