@@ -19,7 +19,7 @@ int main() {
 
     int b = 0;
     int i = 1;
-    int result = 0;
+    long long result = 0;
     while(!pq.empty()) {
         b = pq.top();
         pq.pop();
