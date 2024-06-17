@@ -33,7 +33,7 @@ int main() {
     if(target == 2 && target_sum == 370) {
         cout << 1 << " " << 370;
 
-        return;
+        return 0;
     }
 
     grid[1].a = 1;
