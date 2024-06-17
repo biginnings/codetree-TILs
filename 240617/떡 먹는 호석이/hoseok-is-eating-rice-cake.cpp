@@ -33,7 +33,7 @@ int main() {
     grid[1].a = 1;
     grid[2].b = 1;
 
-    dfs(3);
+    dfs(2);
 
     int fir = 0;
     while ((target_sum - grid[target].a * fir) % grid[target].b != 0) {
