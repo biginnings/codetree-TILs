@@ -35,7 +35,7 @@ int main() {
 
     dfs(3);
 
-    int fir = 1;
+    int fir = 0;
     while ((target_sum - grid[target].a * fir) % grid[target].b != 0) {
         fir++;
     }
