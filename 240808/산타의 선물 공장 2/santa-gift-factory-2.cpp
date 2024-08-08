@@ -44,9 +44,13 @@ void init(int t_n, int t_m) {
 void move_obstacle(int m_src, int m_dst) {
 	if (belt_start[m_src] != nullptr) {
 		belt_end[m_src]->next = belt_start[m_dst];
-		belt_start[m_dst]->prev = belt_end[m_src];
+		if (belt_end[m_src]->next == nullptr) {
+			belt_end[m_dst] = belt_end[m_src];
+		}
+		else {
+			belt_start[m_dst]->prev = belt_end[m_src];
+		}
 		belt_start[m_dst] = belt_start[m_src];
-		belt_start[m_dst]->prev = nullptr;
 		belt_end[m_src] = nullptr;
 		belt_start[m_src] = nullptr;
 		belt_cnt[m_dst] += belt_cnt[m_src];
