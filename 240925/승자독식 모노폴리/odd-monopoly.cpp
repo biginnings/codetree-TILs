@@ -54,7 +54,22 @@ int main() {
         }
     }
 
+    //cout << "\n\n";
+
     for (int i = 0; i <= 1000; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int z = 0; z < n; z++) {
+                //cout << grid[j][z].player_n << grid[j][z].t << " ";
+                if (grid[j][z].t != 0) {
+                    grid[j][z].t--;
+                    if (grid[j][z].t == 0) {
+                        grid[j][z].player_n = 0;
+                    }
+                }
+            }
+            //cout << "\n";
+        }
+        //cout << "\n";
         if (player_cnt == 1) {
             cout << i << '\n';
             return 0;
@@ -64,27 +79,27 @@ int main() {
             return 0;
         }
 
-        for (int j = 1; j <= m; j++) {
-            if (visited[j] == 1) continue;
-            Grid* p_g = &grid[player[j].y][player[j].x];
-            p_g->t--;
-            if (p_g->t == 0) {
-                p_g->player_n = 0;
-                continue;
-            }
+        //for (int j = 1; j <= m; j++) {
+        //    if (visited[j] == 1 && grid[player[j].y][player[j].x].t == 0) continue;
+        //    Grid* p_g = &grid[player[j].y][player[j].x];
+        //    p_g->t--;
+        //    if (p_g->t == 0) {
+        //        p_g->player_n = 0;
+        //        continue;
+        //    }
 
-            while (p_g->prev != nullptr) {
-                Grid* t_p_g = p_g->prev;
+        //    while (p_g->prev != nullptr) {
+        //        Grid* t_p_g = p_g->prev;
 
-                t_p_g->t--;
-                if (t_p_g->t == 0) {
-                    p_g->prev = nullptr;
-                    t_p_g->player_n = 0;
-                    break;
-                }
-                p_g = t_p_g;
-            }
-        }
+        //        t_p_g->t--;
+        //        if (t_p_g->t == 0) {
+        //            p_g->prev = nullptr;
+        //            t_p_g->player_n = 0;
+        //            break;
+        //        }
+        //        p_g = t_p_g;
+        //    }
+        //}
         
         for (int j = 1; j <= m; j++) {
             if (visited[j] == 1) continue;
@@ -111,11 +126,12 @@ int main() {
                 if (grid[next.y][next.x].t == k) {
                     visited[j] = 1;
                     player_cnt--;
-                    continue;
+                    break;
                 }
                 if (grid[next.y][next.x].player_n == 0) {
                     grid[next.y][next.x].player_n = j;
                     grid[next.y][next.x].t = k;
+                    grid[next.y][next.x].prev = &grid[player[j].y][player[j].x];
                     player[j].y = next.y;
                     player[j].x = next.x;
                     player[j].d = z;
@@ -137,3 +153,37 @@ int main() {
 
     return 0;
 }
+
+/*
+5 6 7
+0 0 0 0 3
+0 2 0 0 0
+1 0 0 0 4
+0 6 0 0 0
+0 0 5 0 0
+4 4 3 1 4 2
+2 3 1 4
+4 1 2 3
+3 4 2 1
+4 3 1 2
+2 4 3 1
+2 1 3 4
+3 4 1 2
+4 1 2 3
+4 3 2 1
+1 4 3 2
+1 3 2 4
+3 2 1 4
+3 4 1 2
+3 2 4 1
+1 4 2 3
+1 4 2 3
+3 4 1 2
+3 2 4 1
+1 4 2 3
+1 4 2 3
+3 4 1 2
+4 1 2 3
+4 3 2 1
+1 4 3 2
+*/
